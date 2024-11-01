@@ -9,6 +9,7 @@ export interface Country {
     countryCode: string;
     region: string;
     borders: Country[];
+    population: PopulationCount[];
   }
   
   export interface PopulationCount {

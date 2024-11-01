@@ -78,7 +78,6 @@ countryRouter.get('/', async (_req: Request, res: Response) => {
   
       res.json(countriesWithFlags);
     } catch (error) {
-      console.error('Error details:', error);
       res.status(500).json({ 
         message: 'Error fetching countries',
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -92,19 +91,15 @@ countryRouter.get('/:countryCode', async (req: Request, res: Response) => {
   
   try {
     if (!countryCode) {
-      throw new Error('Country code is required');
+      console.log('Country code is required');
     }
-
-    console.log('Fetching details for country:', countryCode);
 
     // 1. Get country info
     const countryInfoUrl = buildUrl(process.env.DATE_NAGER_API, `CountryInfo/${countryCode}`);
-    console.log('Fetching from:', countryInfoUrl);
     const countryInfoResponse = await axios.get(countryInfoUrl);
 
     // 2. Get population data
     const populationUrl = buildUrl(process.env.COUNTRIES_NOW_API, 'countries/population');
-    console.log('Fetching population from:', populationUrl);
     const populationResponse = await axios.post(populationUrl, {
       country: countryInfoResponse.data.commonName
     });
@@ -122,10 +117,8 @@ countryRouter.get('/:countryCode', async (req: Request, res: Response) => {
       flagUrl: flagResponse.data.data.flag
     };
 
-    console.log('All data fetched successfully');
     res.json(countryData);
   } catch (error) {
-    console.error('Failed to fetch country details:', error);
     handleError(error, res);
   }
 });

@@ -1,4 +1,4 @@
-import { CountryCard, CountryCardSkeleton } from "../../components/CountryCard";
+import { CountryCard } from "../../components/CountryCard";
 import { getCountries } from "../../services/api";
 
 export default async function Home() {
