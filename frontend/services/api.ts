@@ -1,6 +1,8 @@
 import { Country, CountryInfo } from "../types/country.types";
 
-const API_BASE_URL = "http://localhost:3001/api";
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? "https://county-information-app.onrender.com/api" 
+  : "http://localhost:3001/api";
 
 export async function getCountries(): Promise<Country[]> {
     const response = await fetch(`${API_BASE_URL}/countries`, {
